@@ -13,7 +13,7 @@ export const databaseProviders = [
         port: 3306,
         username: 'root',
         password: 'root',
-        database: 'nest',
+        database: 'api',
       });
       sequelize.addModels([
         User,

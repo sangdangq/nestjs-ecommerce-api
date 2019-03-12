@@ -4,12 +4,28 @@ import { IsString, IsNumber, MaxLength } from 'class-validator';
 export class ProductVm {
     // @IsString()
     @ApiModelProperty()
-    productId: string;
+    productId?: string;
 
-    // @MaxLength(2)
+    @IsString()
+    @ApiModelProperty()
+    currency: string;
+
+    @IsString()
+    @ApiModelProperty()
+    categoryId: string;
+
+    @MaxLength(2)
     // @IsNumber()
     @ApiModelProperty()
-    discount_rate: number;
+    discountRate: number;
+
+    // @IsNumber()
+    @ApiModelProperty()
+    originalPrice: number;
+
+    // @IsNumber()
+    @ApiModelProperty()
+    price: number;
 
     @IsString()
     @ApiModelProperty()
@@ -17,20 +33,8 @@ export class ProductVm {
 
     @IsString()
     @ApiModelProperty()
-    inventory_status: string;
-
-    // @IsNumber()
-    @ApiModelProperty()
-    original_price: number;
-
-    // @IsNumber()
-    @ApiModelProperty()
-    price: number;
+    inventoryStatus: string;
 
     @ApiModelProperty()
-    thumbail_url: string;
-
-    @IsString()
-    @ApiModelProperty()
-    url_key: string;
+    thumbailUrl: string;
 }

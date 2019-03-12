@@ -8,23 +8,35 @@ export class ProductEnt extends Model<ProductEnt> {
     productId: number;
 
     @Column
-    discount_rate: number;
+    categoryId: string;
+
+    @Column
+    currency: number;
+
+    @Column
+    discountRate: number;
 
     @Column
     name: string;
 
     @Column
-    inventory_status: string;
+    inventoryStatus: string;
 
     @Column
-    original_price: number;
+    originalPrice: number;
 
     @Column
     price: number;
 
     @Column
-    thumbail_url: string;
+    thumbailUrl: string;
 
     @Column
-    url_key: string;
+    ratingScore: string;
+
+    @Column
+    reviews: number;
+
+    @Column
+    urlKey: string;
 }

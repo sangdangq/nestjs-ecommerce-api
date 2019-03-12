@@ -119,4 +119,10 @@ export class UserService {
         }
         return false;
     }
+
+    public getUserbyEmail(userEmail: string): any {
+        return this.userRepo.findOne({
+            where: { email: userEmail },
+        });
+    }
 }
