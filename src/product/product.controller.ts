@@ -1,6 +1,7 @@
-import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards } from '@nestjs/common';
+import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
-import { JwtStrategy } from './../shared/guard/jwt.strategy';
+import { Product, ProductDelete } from './product';
 
 @Controller('product')
 export class ProductController {
@@ -8,24 +9,41 @@ export class ProductController {
       private readonly productService: ProductService,
       ) {}
 
-  @UseGuards(JwtStrategy)
   @Get(':id')
   async getProductById(@Param() id: string) {
     return this.productService.getProductById(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('create')
-  async create(@Body() body: any, @Res() res) {
-    return this.productService.create(body).then( data => {
-      if ( data ) {
-        return res.status(HttpStatus.OK).end('OK');
-      }
-      return res.status(HttpStatus.BAD_REQUEST).end('Failed');
-    });
+  async create(@Body() body: Product, @Res() res) {
+    const isCreated = await this.productService.create(body);
+    if (isCreated) {
+      res.status(HttpStatus.OK).end('Create successfully');
+    } else {
+      res.status(HttpStatus.BAD_REQUEST).end('Create failed');
+    }
   }
 
-  // @Put('update')
-  // async update(@Body() body: ProductVm, @Res() res) {
-  //   return this.productService.
-  // }
+  // @UseGuards(AuthGuard('jwt'))
+  @Put('update')
+  async update(@Body() dataUpdate: Product, @Res() res) {
+    const updateSuccess = await this.productService.update(dataUpdate);
+    if (updateSuccess) {
+      res.status(HttpStatus.OK).end('Successfully updated');
+    } else {
+      res.status(HttpStatus.BAD_REQUEST).end('Update failed');
+    }
+  }
+
+  // @UseGuards(AuthGuard('jwt'))
+  @Delete('delete')
+  async delete(@Body() body: ProductDelete, @Res() res) {
+    const isDeleted = await this.productService.deletebyId(body.productId);
+    if (isDeleted) {
+      res.status(HttpStatus.OK).end('Successfully deleted');
+    } else {
+      res.status(HttpStatus.BAD_REQUEST).end('Delete failed');
+    }
+  }
 }

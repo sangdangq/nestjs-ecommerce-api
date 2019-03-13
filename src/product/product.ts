@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IsString, IsNumber, MaxLength } from 'class-validator';
 
-export class ProductVm {
+export class Product {
     // @IsString()
     @ApiModelProperty()
     productId?: string;
@@ -37,4 +37,10 @@ export class ProductVm {
 
     @ApiModelProperty()
     thumbailUrl: string;
+}
+
+export class ProductDelete {
+    @MaxLength(5)
+    @ApiModelProperty()
+    productId: string;
 }

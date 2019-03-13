@@ -4,11 +4,13 @@ import { SharedModule } from './../shared/shared.module';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { productProviders } from './product.provider';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
         DatabaseModule,
-        SharedModule,
+        PassportModule,
     ],
     controllers: [ProductController],
     providers: [

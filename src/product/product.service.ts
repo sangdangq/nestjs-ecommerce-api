@@ -1,6 +1,6 @@
 import { ProductEnt } from './product.entity';
 import { Injectable, Inject } from '@nestjs/common';
-import { ProductVm } from './product';
+import { Product } from './product';
 
 @Injectable()
 export class ProductService {
@@ -9,11 +9,8 @@ export class ProductService {
     ) {}
 
     public async getProductById(id: string) {
-        this.productRepo.findOne({
-            where: { productId : id },
-        }).then(data => {
-            return data;
-        }).catch(err => {
+        return await this.productRepo.findOne({
+            where: { productId: 1 },
         });
     }
 
@@ -29,7 +26,7 @@ export class ProductService {
         return productList;
     }
 
-    public async create(prod: ProductVm): Promise<ProductEnt> {
+    public async create(prod: Product) {
         const product = new ProductEnt();
         product.discountRate = prod.discountRate;
         product.name = prod.name;
@@ -74,8 +71,8 @@ export class ProductService {
         return urlKey;
     }
 
-    public async update(prod: ProductVm) {
-        this.productRepo.update({
+    public async update(prod: Product) {
+        return this.productRepo.update({
             categoryId: prod.categoryId,
             name: prod.name,
             currency: prod.currency,
@@ -90,6 +87,12 @@ export class ProductService {
         },
         {
             where: { productId: prod.productId},
+        });
+    }
+
+    public async deletebyId(id: string) {
+        return this.productRepo.destroy({
+            where: { productId: id},
         });
     }
 }

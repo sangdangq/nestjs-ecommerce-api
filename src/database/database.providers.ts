@@ -1,6 +1,6 @@
-import { User, ResetPassword, AccessToken } from './../user/user.entity';
+import { ProductEnt } from './../product/product.entity';
+import { User } from './../user/user.entity';
 import { Sequelize } from 'sequelize-typescript';
-import { ProductEnt } from 'product/product.entity';
 
 export const databaseProviders = [
   {
@@ -16,10 +16,8 @@ export const databaseProviders = [
         database: 'api',
       });
       sequelize.addModels([
-        User,
-        ResetPassword,
-        AccessToken,
         ProductEnt,
+        User,
       ]);
       await sequelize.sync();
       return sequelize;
