@@ -5,7 +5,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AllExceptionsFilter } from './shared/exception-filter/exception.filter';
-import { SharedModule } from 'shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
