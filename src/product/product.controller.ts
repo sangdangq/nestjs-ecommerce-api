@@ -14,7 +14,7 @@ export class ProductController {
     return this.productService.getProductById(id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard())
   @Post('create')
   async create(@Body() body: Product, @Res() res) {
     const isCreated = await this.productService.create(body);

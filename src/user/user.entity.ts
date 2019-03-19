@@ -2,20 +2,30 @@ import { Table, Column, IsUUID, Unique, AllowNull, BeforeCreate, Model, AutoIncr
 
 @Table
 export class User extends Model<User>{
-  @AutoIncrement
   @PrimaryKey
   @Column
-  id: number;
-
-  @Unique
-  @Column
-  email: string;
+  CustomerId: string;
 
   @Column
-  fullname: string;
+  LastName: string;
 
   @Column
-  password: string;
+  FirstName: string;
+
+  @Column
+  Email: string;
+
+  @Column
+  Password: string;
+
+  @Column
+  PhoneNo: string;
+
+  @Column
+  Gender: string;
+
+  @Column
+  DateOfBirth: Date;
 }
 
 @Table
