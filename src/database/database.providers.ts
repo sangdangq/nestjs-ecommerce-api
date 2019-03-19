@@ -1,7 +1,7 @@
+import { Category } from './../category/category.entity';
 import { ProductEnt } from './../product/product.entity';
 import { User } from './../user/user.entity';
 import { Sequelize } from 'sequelize-typescript';
-import { Category } from 'category/category.entity';
 
 const localDb = {
   operatorsAliases: false,
