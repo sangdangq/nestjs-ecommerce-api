@@ -11,15 +11,7 @@ export class AuthService {
   ) {
   }
 
-  public async validateUser(payload: JwtPayload): Promise<boolean> {
-    if (!payload) {
-        return false;
-    }
-    const user = await this._userService.getUserbyEmail(payload.email);
-    if (user) {
-        return true;
-    } else {
-        return false;
-    }
+  public async validateUser(payload: JwtPayload): Promise<any> {
+    return this._userService.getUserbyEmail(payload.email);
   }
 }

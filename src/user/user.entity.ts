@@ -29,20 +29,6 @@ export class User extends Model<User>{
 }
 
 @Table
-export class ResetPassword extends Model<ResetPassword>{
-  @Column
-  id: number;
-
-  @Unique
-  @PrimaryKey
-  @Column
-  email: string;
-
-  @Column
-  key: string;
-}
-
-@Table
 export class AccessToken extends Model<AccessToken> {
   @Column
   email: string;

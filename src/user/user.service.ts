@@ -23,7 +23,7 @@ export class UserService {
 
     public async getUserbyEmail(userEmail: string) {
         return this.userRepo.findOne({
-            where: { email: userEmail },
+            where: { Email: userEmail },
         });
     }
 }
