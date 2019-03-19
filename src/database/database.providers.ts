@@ -1,6 +1,7 @@
 import { ProductEnt } from './../product/product.entity';
 import { User } from './../user/user.entity';
 import { Sequelize } from 'sequelize-typescript';
+import { Category } from 'category/category.entity';
 
 const localDb = {
   operatorsAliases: false,
@@ -36,10 +37,11 @@ export const databaseProviders = [
   {
     provide: 'SequelizeToken',
     useFactory: async () => {
-      const sequelize = new Sequelize(HerokuDbIden);
+      const sequelize = new Sequelize(localDb);
       sequelize.addModels([
         ProductEnt,
         User,
+        Category,
       ]);
       await sequelize.sync();
       return sequelize;

@@ -6,12 +6,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AllExceptionsFilter } from './shared/exception-filter/exception.filter';
 import { SharedModule } from './shared/shared.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
     UserModule,
     SharedModule,
     ProductModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [
