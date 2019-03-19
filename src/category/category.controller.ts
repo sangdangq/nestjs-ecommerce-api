@@ -14,7 +14,7 @@ export class CategoryController {
         if (!categories.length) {
             throw new BadRequestException('Failed to get categories');
         } else {
-            return 'Updated successfully';
+            return categories;
         }
     }
 
@@ -24,7 +24,7 @@ export class CategoryController {
         if (!category) {
             throw new BadRequestException('Failed to create category');
         } else {
-            return category;
+            return 'Created successfully';
         }
     }
 

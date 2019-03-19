@@ -37,7 +37,7 @@ export const databaseProviders = [
   {
     provide: 'SequelizeToken',
     useFactory: async () => {
-      const sequelize = new Sequelize(localDb);
+      const sequelize = new Sequelize(HerokuDbIden);
       sequelize.addModels([
         ProductEnt,
         User,
