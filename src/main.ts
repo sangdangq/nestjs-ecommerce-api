@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from './shared/pipe/generic-pipe';
+import 'reflect-metadata';
 
 declare const module: any;
 async function bootstrap() {
@@ -15,7 +16,8 @@ async function bootstrap() {
     .setDescription('The shopping online API descripttion')
     .setVersion('1.0')
     .addTag('Shopping')
-    .setSchemes('https')
+    .setSchemes('http')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, opttions);

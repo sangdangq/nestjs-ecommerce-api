@@ -1,4 +1,4 @@
-import { Table, PrimaryKey, Column, Model, AutoIncrement, Default } from 'sequelize-typescript';
+import { Table, PrimaryKey, Column, Model, AutoIncrement, Default, DataType, AllowNull } from 'sequelize-typescript';
 
 @Table
 export class Product extends Model<Product> {
@@ -19,7 +19,10 @@ export class Product extends Model<Product> {
     @Column
     Name: string;
 
-    @Column
+    @Column({
+        type: DataType.ENUM('Ready', 'OutOfStock', 'StopSales'),
+        allowNull: false,
+    })
     InventoryStatus: string;
 
     @Column

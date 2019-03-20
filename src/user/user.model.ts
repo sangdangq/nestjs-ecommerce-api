@@ -11,3 +11,11 @@ export class LoginVm {
     @ApiModelProperty()
     password: string;
 }
+
+export class TokenVm {
+    @ApiModelProperty()
+    token: string;
+
+    @ApiModelProperty()
+    expireIn: number;
+}

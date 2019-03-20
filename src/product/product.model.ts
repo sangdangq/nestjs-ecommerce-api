@@ -1,29 +1,37 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsNumber, MaxLength, IsNumberString } from 'class-validator';
+import { IsString, IsNumber, MaxLength, Min, IsPositive, IsUrl, IsOptional } from 'class-validator';
 
+export enum InventoryStatus {
+    'Ready' = 1,
+    'OutOfStock' = 2,
+    'StopSales' = 3,
+}
 export class ProductVm {
-    // @IsString()
+    @IsOptional()
+    @IsNumber()
     @ApiModelPropertyOptional()
-    productId?: string;
+    productId?: number;
 
-    // @IsNumber()
+    @IsNumber()
     @ApiModelProperty()
     currency: number;
 
-    // @IsString()
+    @IsNumber()
     @ApiModelProperty()
     categoryId: number;
 
-    @MaxLength(2)
-    // @IsNumber()
+    @Min(2)
+    @IsNumber()
     @ApiModelProperty()
     discountRate: number;
 
-    // @IsNumber()
+    @Min(1000)
+    @IsNumber()
     @ApiModelProperty()
     originalPrice: number;
 
-    // @IsNumber()
+    @Min(1000)
+    @IsNumber()
     @ApiModelProperty()
     price: number;
 
@@ -32,9 +40,10 @@ export class ProductVm {
     name: string;
 
     @IsString()
-    @ApiModelProperty()
-    inventoryStatus: string;
+    @ApiModelProperty({ enum: InventoryStatus})
+    inventoryStatus: InventoryStatus;
 
+    @IsUrl()
     @ApiModelProperty()
     thumbailUrl: string;
 }
