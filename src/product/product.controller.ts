@@ -1,7 +1,7 @@
 import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
-import { ProductVm, ProductDelete } from './product';
+import { ProductVm, ProductDeleteVm } from './product';
 import { ApiBearerAuth, ApiOkResponse, ApiBadRequestResponse } from '@nestjs/swagger';
 
 @Controller('product')
@@ -51,7 +51,7 @@ export class ProductController {
 
   @UseGuards(AuthGuard())
   @Delete()
-  async delete(@Body() body: ProductDelete, @Res() res) {
+  async delete(@Body() body: ProductDeleteVm, @Res() res) {
     const isDeleted = await this.productService.deletebyId(body.productId);
     if (isDeleted) {
       res.status(HttpStatus.OK).end('Successfully deleted');

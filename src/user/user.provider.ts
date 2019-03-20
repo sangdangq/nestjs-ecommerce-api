@@ -1,12 +1,8 @@
-import { User, AccessToken } from './user.entity';
+import { User } from './user.entity';
 
 export const userProviders = [
   {
-    provide: 'UserRepository',
+    provide: 'UserRepo',
     useValue: User,
-  },
-  {
-    provide: 'AccessTokenRepo',
-    useValue: AccessToken,
   },
 ];

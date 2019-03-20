@@ -27,12 +27,3 @@ export class User extends Model<User>{
   @Column
   DateOfBirth: Date;
 }
-
-@Table
-export class AccessToken extends Model<AccessToken> {
-  @Column
-  email: string;
-
-  @Column
-  key: string;
-}
