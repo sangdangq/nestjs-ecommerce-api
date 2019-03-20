@@ -1,18 +1,18 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, MaxLength } from 'class-validator';
+import { IsString, IsNumber, MaxLength, IsNumberString } from 'class-validator';
 
-export class Product {
+export class ProductVm {
     // @IsString()
     @ApiModelProperty()
     productId?: string;
 
-    @IsString()
+    // @IsNumber()
     @ApiModelProperty()
-    currency: string;
+    currency: number;
 
-    @IsString()
+    // @IsString()
     @ApiModelProperty()
-    categoryId: string;
+    categoryId: number;
 
     @MaxLength(2)
     // @IsNumber()

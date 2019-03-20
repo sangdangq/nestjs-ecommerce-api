@@ -1,42 +1,42 @@
 import { Table, PrimaryKey, Column, Model, AutoIncrement, Default } from 'sequelize-typescript';
 
 @Table
-export class ProductEnt extends Model<ProductEnt> {
+export class Product extends Model<Product> {
     @PrimaryKey
     @AutoIncrement
     @Column
-    productId: number;
+    ProductId: number;
 
     @Column
-    categoryId: string;
+    CategoryId: number;
 
     @Column
-    currency: number;
+    Currency: number;
 
     @Column
-    discountRate: number;
+    DiscountRate: number;
 
     @Column
-    name: string;
+    Name: string;
 
     @Column
-    inventoryStatus: string;
+    InventoryStatus: string;
 
     @Column
-    originalPrice: number;
+    OriginalPrice: number;
 
     @Column
-    price: number;
+    Price: number;
 
     @Column
-    thumbailUrl: string;
+    ThumbailUrl: string;
 
     @Column
-    ratingScore: string;
+    RatingScore: string;
 
     @Column
-    reviews: number;
+    Reviews: number;
 
     @Column
-    urlKey: string;
+    UrlKey: string;
 }

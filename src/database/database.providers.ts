@@ -1,5 +1,5 @@
 import { Category } from './../category/category.entity';
-import { ProductEnt } from './../product/product.entity';
+import { Product } from './../product/product.entity';
 import { User } from './../user/user.entity';
 import { Sequelize } from 'sequelize-typescript';
 
@@ -39,7 +39,7 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize(HerokuDbIden);
       sequelize.addModels([
-        ProductEnt,
+        Product,
         User,
         Category,
       ]);

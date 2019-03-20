@@ -1,8 +1,8 @@
-import { ProductEnt } from './product.entity';
+import { Product } from './product.entity';
 
 export const productProviders = [
   {
-    provide: 'ProductRepository',
-    useValue: ProductEnt,
+    provide: 'ProductRepo',
+    useValue: Product,
   },
 ];

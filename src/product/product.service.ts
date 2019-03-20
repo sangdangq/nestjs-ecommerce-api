@@ -1,16 +1,16 @@
-import { ProductEnt } from './product.entity';
+import { Product } from './product.entity';
 import { Injectable, Inject } from '@nestjs/common';
-import { Product } from './product';
+import { ProductVm } from './product';
 
 @Injectable()
 export class ProductService {
     constructor(
-        @Inject('ProductRepository') private readonly productRepo: typeof ProductEnt,
+        @Inject('ProductRepo') private readonly productRepo: typeof Product,
     ) {}
 
-    public async getProductById(id: string) {
+    public async getProductById(id: number) {
         return await this.productRepo.findOne({
-            where: { productId: 1 },
+            where: { ProductId: id },
         });
     }
 
@@ -18,7 +18,7 @@ export class ProductService {
         const productList = [];
         listProd.forEach(item => {
             this.productRepo.findOne({
-                where: { productId: item },
+                where: { ProductId: item },
             }).then(product => {
                 productList.push(product);
             });
@@ -26,15 +26,17 @@ export class ProductService {
         return productList;
     }
 
-    public async create(prod: Product) {
-        const product = new ProductEnt();
-        product.discountRate = prod.discountRate;
-        product.name = prod.name;
-        product.inventoryStatus = prod.inventoryStatus;
-        product.originalPrice = prod.originalPrice;
-        product.price = prod.price;
-        product.thumbailUrl = prod.thumbailUrl;
-        await this.convertNametoUrl(prod.name).then(urlKey => product.urlKey = urlKey);
+    public async create(prod: ProductVm) {
+        const product = new Product();
+        product.CategoryId = prod.categoryId;
+        product.Currency = prod.currency;
+        product.DiscountRate = prod.discountRate;
+        product.Name = prod.name;
+        product.InventoryStatus = prod.inventoryStatus;
+        product.OriginalPrice = prod.originalPrice;
+        product.Price = prod.price;
+        product.ThumbailUrl = prod.thumbailUrl;
+        await this.convertNametoUrl(prod.name).then(urlKey => product.UrlKey = urlKey);
         return product.save();
     }
 
@@ -63,7 +65,7 @@ export class ProductService {
             order: [['productId', 'DESC']],
         }).then(maxNumber => {
             if (maxNumber.length > 0) {
-                urlKey += 'p' + (maxNumber[0].productId + 1);
+                urlKey += 'p' + (maxNumber[0].ProductId + 1);
             } else {
                 urlKey += 'p1';
             }
@@ -71,17 +73,17 @@ export class ProductService {
         return urlKey;
     }
 
-    public async update(prod: Product) {
+    public async update(prod: ProductVm) {
         return this.productRepo.update({
-            categoryId: prod.categoryId,
-            name: prod.name,
-            currency: prod.currency,
-            discountRate: prod.discountRate,
-            inventoryStatus: prod.inventoryStatus,
-            originalPrice: prod.originalPrice,
-            price: prod.price,
-            thumbailUrl: prod.thumbailUrl,
-            urlKey: await this.convertNametoUrl(prod.name).then(url => {
+            CategoryId: prod.categoryId,
+            Name: prod.name,
+            Currency: prod.currency,
+            DiscountRate: prod.discountRate,
+            InventoryStatus: prod.inventoryStatus,
+            OriginalPrice: prod.originalPrice,
+            Price: prod.price,
+            ThumbailUrl: prod.thumbailUrl,
+            UrlKey: await this.convertNametoUrl(prod.name).then(url => {
                 return url;
             }),
         },
@@ -92,7 +94,7 @@ export class ProductService {
 
     public async deletebyId(id: string) {
         return this.productRepo.destroy({
-            where: { productId: id},
+            where: { ProductId: id},
         });
     }
 }
