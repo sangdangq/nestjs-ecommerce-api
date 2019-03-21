@@ -41,7 +41,7 @@ export class CategoryController {
         }
     }
 
-    @Delete()
+    @Delete(':id')
     public async delete(@Param('id') id: number) {
         // tslint:disable-next-line:radix
 
