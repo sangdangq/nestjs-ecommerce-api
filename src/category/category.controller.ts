@@ -42,9 +42,9 @@ export class CategoryController {
     }
 
     @Delete()
-    public async delete(@Body() model) {
+    public async delete(@Param('id') id: number) {
         // tslint:disable-next-line:radix
-        const id = parseInt(model.id);
+
         if (isNaN(id)) {
             throw new BadRequestException('Invalid model');
         }
