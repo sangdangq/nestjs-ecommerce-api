@@ -1,4 +1,4 @@
-import { Controller, Get, BadRequestException, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, BadRequestException, Post, Body, Put, Delete, Param} from '@nestjs/common';
 import { CategoryVm, CategoryDelete } from './category.model';
 import { CategorySevice } from './category.service';
 
