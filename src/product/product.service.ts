@@ -1,6 +1,6 @@
 import { Product } from './product.entity';
 import { Injectable, Inject } from '@nestjs/common';
-import { ProductVm } from './product';
+import { ProductVm, InventoryStatus } from './product.model';
 
 @Injectable()
 export class ProductService {
@@ -32,7 +32,7 @@ export class ProductService {
         product.Currency = prod.currency;
         product.DiscountRate = prod.discountRate;
         product.Name = prod.name;
-        product.InventoryStatus = prod.inventoryStatus;
+        product.InventoryStatus = InventoryStatus[prod.inventoryStatus];
         product.OriginalPrice = prod.originalPrice;
         product.Price = prod.price;
         product.ThumbailUrl = prod.thumbailUrl;

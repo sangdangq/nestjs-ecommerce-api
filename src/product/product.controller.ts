@@ -1,7 +1,8 @@
+import { ExceptionRes } from './../shared/model/response';
 import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
-import { ProductVm, ProductDelete } from './product';
+import { ProductVm, ProductDeleteVm } from './product.model';
 import { ApiBearerAuth, ApiOkResponse, ApiBadRequestResponse } from '@nestjs/swagger';
 
 @Controller('product')
@@ -10,7 +11,11 @@ export class ProductController {
       private readonly productService: ProductService,
       ) {}
 
-  @ApiBadRequestResponse({description: 'Failed to get product'})
+  @ApiOkResponse({type: ProductVm})
+  @ApiBadRequestResponse({
+    description: 'Failed to get product',
+    type: ExceptionRes,
+  })
   @Get(':id')
   async getProductById(@Param('id') id: string, @Res() res) {
     // tslint:disable-next-line:radix
@@ -28,13 +33,18 @@ export class ProductController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
+  @ApiOkResponse({type: ProductVm})
+  @ApiBadRequestResponse({
+    description: 'Failed to create product',
+    type: ExceptionRes,
+  })
   @Post()
   async create(@Body() body: ProductVm, @Res() res) {
     const isCreated = await this.productService.create(body);
     if (isCreated) {
       res.status(HttpStatus.OK).end('Create successfully');
     } else {
-      res.status(HttpStatus.BAD_REQUEST).end('Create failed');
+      res.status(HttpStatus.BAD_REQUEST).end('Failed to create product');
     }
   }
 
@@ -51,7 +61,7 @@ export class ProductController {
 
   @UseGuards(AuthGuard())
   @Delete()
-  async delete(@Body() body: ProductDelete, @Res() res) {
+  async delete(@Body() body: ProductDeleteVm, @Res() res) {
     const isDeleted = await this.productService.deletebyId(body.productId);
     if (isDeleted) {
       res.status(HttpStatus.OK).end('Successfully deleted');

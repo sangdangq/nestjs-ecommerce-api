@@ -1,4 +1,4 @@
-import { Controller, Get, BadRequestException, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, BadRequestException, Post, Body, Put, Delete, Param} from '@nestjs/common';
 import { CategoryVm, CategoryDelete } from './category.model';
 import { CategorySevice } from './category.service';
 
@@ -41,10 +41,10 @@ export class CategoryController {
         }
     }
 
-    @Delete()
-    public async delete(@Body() model) {
+    @Delete(':id')
+    public async delete(@Param('id') id: number) {
         // tslint:disable-next-line:radix
-        const id = parseInt(model.id);
+
         if (isNaN(id)) {
             throw new BadRequestException('Invalid model');
         }

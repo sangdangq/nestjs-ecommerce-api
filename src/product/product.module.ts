@@ -9,6 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
+        SharedModule,
         DatabaseModule,
         PassportModule.register({ defaultStrategy: 'jwt' }),
     ],
