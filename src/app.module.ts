@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { AllExceptionsFilter } from './shared/exception-filter/exception.filter';
 import { SharedModule } from './shared/shared.module';
 import { CategoryModule } from './category/category.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CategoryModule } from './category/category.module';
     SharedModule,
     ProductModule,
     CategoryModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [
