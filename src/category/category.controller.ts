@@ -1,6 +1,7 @@
 import { Controller, Get, BadRequestException, Post, Body, Put, Delete } from '@nestjs/common';
 import { CategoryVm, CategoryDelete } from './category.model';
 import { CategorySevice } from './category.service';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('category')
 export class CategoryController {
@@ -9,6 +10,7 @@ export class CategoryController {
     ) {}
 
     @Get()
+    @ApiOkResponse({type: CategoryVm, isArray: true})
     public async getCategories() {
         const categories = await this.categoryService.getCategories();
         if (!categories.length) {
@@ -19,6 +21,7 @@ export class CategoryController {
     }
 
     @Post()
+    @ApiOkResponse({description: 'Created successfully'})
     public async create(@Body() model: CategoryVm) {
         const category = await this.categoryService.create(model);
         if (!category) {
@@ -29,6 +32,7 @@ export class CategoryController {
     }
 
     @Put()
+    @ApiOkResponse({description: 'Update successfully'})
     public async update(@Body() model: CategoryVm) {
         if (!model.categoryId) {
             throw new BadRequestException('Failed to update category');
@@ -42,6 +46,7 @@ export class CategoryController {
     }
 
     @Delete()
+    @ApiOkResponse({description: 'Delete successfully'})
     public async delete(@Body() model) {
         // tslint:disable-next-line:radix
         const id = parseInt(model.id);
