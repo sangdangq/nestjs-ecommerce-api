@@ -9,8 +9,8 @@ export class CommentService {
         @InjectModel(Comment.modelName) private readonly commentModel: ModelType<Comment>,
     ) {}
 
-    async getComment(id: number) {
-        return await this.commentModel.findById(id);
+    async getComment(commentId: number) {
+        return await this.commentModel.findOne({id: commentId});
     }
 
     async create(commentDto: Comment) {

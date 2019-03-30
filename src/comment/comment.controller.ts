@@ -1,5 +1,6 @@
 import { CommentService } from './comment.service';
 import { Controller, Post, Body, Res, HttpStatus, Get, Param } from '@nestjs/common';
+import { Comment } from './comment.model'; 
 
 @Controller('comment')
 export class CommentController {
@@ -7,7 +8,7 @@ export class CommentController {
     }
 
     @Post()
-    async create(@Body() body, @Res() res) {
+    async create(@Body() body: Comment, @Res() res) {
         const result = await this.commentService.create(body);
         if (result) {
             res.status(HttpStatus.OK).end('Create successfully');
@@ -21,6 +22,6 @@ export class CommentController {
         if (result) {
             res.status(HttpStatus.OK).send(result);
         }
-        res.status(HttpStatus.BAD_REQUEST).end('Failed to create comment');
+        res.status(HttpStatus.BAD_REQUEST).end('Failed to get comment');
     }
 }
