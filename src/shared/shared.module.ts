@@ -1,5 +1,4 @@
 import { Module, HttpModule } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './guard/auth.service';
 import { JwtStrategy } from './guard/jwt.strategy';
@@ -13,6 +12,10 @@ import { UserModule } from '../user/user.module';
     exports: [AuthService],
     imports: [
         UserModule,
+        JwtModule.register({
+            secretOrPrivateKey: 'K4ad24@$!Dpnh80-14nadhKUoqe&&BJMSSSA',
+            signOptions: { expiresIn: '2 days' },
+        }),
     ],
 })
 export class SharedModule {}
