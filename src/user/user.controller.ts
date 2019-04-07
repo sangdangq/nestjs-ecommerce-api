@@ -2,7 +2,7 @@ import { HttpStatus } from '@nestjs/common';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { LoginVm, TokenVm } from './user.model';
+import { LoginVm, TokenVm, UserRegisterVm, RefreshTokenVm } from './user.model';
 
 @Controller('user')
 export class UserController {
@@ -17,7 +17,18 @@ export class UserController {
     return this._userService.login(body).subscribe(data => {
       res.status(HttpStatus.OK).send(data);
     }, err => {
-      res.status(HttpStatus.BAD_REQUEST).end(this.errMsg);
+      res.status(HttpStatus.BAD_REQUEST).end(err.response.data);
+    });
+  }
+
+  @ApiOkResponse({type: TokenVm})
+  @ApiBadRequestResponse({description: 'Authorization information is missing or invalid.'})
+  @Post('register')
+  async register(@Body() registerInfo: UserRegisterVm, @Res() res) {
+    return this._userService.register(registerInfo).subscribe(data => {
+      res.status(HttpStatus.OK).send(data);
+    }, err => {
+      res.status(HttpStatus.BAD_REQUEST).end(err.response.data);
     });
   }
 }

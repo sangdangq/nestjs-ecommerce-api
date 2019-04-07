@@ -1,5 +1,7 @@
+import { StatusInterceptor } from './../shared/exception-filter/http-interceptor';
 import { ExceptionRes } from './../shared/model/response';
-import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException } from '@nestjs/common';
+import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException,
+   UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
 import { ProductVm, ProductDeleteVm } from './product.model';
@@ -49,17 +51,20 @@ export class ProductController {
   }
 
   @UseGuards(AuthGuard())
+  @ApiOkResponse({description: 'Successfully updated'})
+  @ApiBearerAuth()
   @Put()
   async update(@Body() dataUpdate: ProductVm, @Res() res) {
     const updateSuccess = await this.productService.update(dataUpdate);
     if (updateSuccess) {
-      res.status(HttpStatus.OK).end('Successfully updated');
+      res.status(HttpStatus.OK).end('Update successfully');
     } else {
       res.status(HttpStatus.BAD_REQUEST).end('Update failed');
     }
   }
 
   @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @Delete()
   async delete(@Body() body: ProductDeleteVm, @Res() res) {
     const isDeleted = await this.productService.deletebyId(body.productId);

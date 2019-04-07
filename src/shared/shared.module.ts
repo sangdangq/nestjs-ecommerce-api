@@ -14,7 +14,7 @@ import { UserModule } from '../user/user.module';
         UserModule,
         JwtModule.register({
             secretOrPrivateKey: 'K4ad24@$!Dpnh80-14nadhKUoqe&&BJMSSSA',
-            signOptions: { expiresIn: '2 days' },
+            signOptions: { expiresIn: '2h' },
         }),
     ],
 })
