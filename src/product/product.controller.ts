@@ -1,4 +1,3 @@
-import { StatusInterceptor } from './../shared/exception-filter/http-interceptor';
 import { ExceptionRes } from './../shared/model/response';
 import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException,
    UseInterceptors } from '@nestjs/common';
