@@ -4,15 +4,18 @@ import { IsString, IsEmail, IsNumber, IsDate, IsPhoneNumber } from 'class-valida
 export class LoginVm {
     @IsEmail()
     @IsString()
-    @ApiModelProperty()
+    @ApiModelProperty({example: 'user002@gmail.com'})
     email: string;
 
     @IsString()
-    @ApiModelProperty()
+    @ApiModelProperty({example: '123'})
     password: string;
 }
 
 export class TokenVm {
+    @ApiModelProperty()
+    refreshToken: string;
+
     @ApiModelProperty()
     token: string;
 
