@@ -34,4 +34,12 @@ export class UserService {
              map(response => response.data),
          );
     }
+
+    refreshToken(refreshInfo: RefreshTokenVm) {
+        const endpoint = this.identityUrl + 'refreshToken';
+        return this._http.post(endpoint, refreshInfo)
+        .pipe(
+             map(response => response.data),
+         );
+    }
 }
