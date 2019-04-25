@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, MulterModule} from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { CommentModule } from './comment/comment.module';
+import { UploadFileModule } from './upload-file/upload-file.module';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { CommentModule } from './comment/comment.module';
     ProductModule,
     CategoryModule,
     CommentModule,
+    MulterModule.register({
+      dest: 'uploads',
+    }),
+    UploadFileModule,
   ],
   controllers: [AppController],
   providers: [

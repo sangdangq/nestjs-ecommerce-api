@@ -11,7 +11,7 @@ export class UserService {
         @Inject('UserRepo') private readonly userRepo: typeof User,
     ) {}
 
-    public identityUrl = 'https://idensd.herokuapp.com/user/';
+    public identityUrl = 'http://localhost:3333/user/';
 
     login(userCre: LoginVm) {
         const endpoint = this.identityUrl + 'login';
@@ -23,7 +23,7 @@ export class UserService {
 
     async getUserbyEmail(userEmail: string) {
         return this.userRepo.findOne({
-            where: { Email: userEmail },
+            where: { email: userEmail },
         });
     }
 
