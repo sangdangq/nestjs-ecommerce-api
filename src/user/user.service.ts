@@ -11,7 +11,7 @@ export class UserService {
         @Inject('UserRepo') private readonly userRepo: typeof User,
     ) {}
 
-    public identityUrl = 'http://localhost:3333/user/';
+    public identityUrl = 'https://idensd.herokuapp.com/user/';
 
     login(userCre: LoginVm) {
         const endpoint = this.identityUrl + 'login';
