@@ -1,14 +1,15 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { HttpService } from '@nestjs/common/http';
 import { map } from 'rxjs/operators';
-import { LoginVm, UserRegisterVm, RefreshTokenVm } from './user.model';
+import { LoginVm, UserRegisterVm, RefreshTokenVm, UserUpdate } from './user.model';
 import { User } from './user.entity';
+import * as crypto from 'crypto-js';
 
 @Injectable()
 export class UserService {
     constructor(
         private readonly _http: HttpService,
-        @Inject('UserRepo') private readonly userRepo: typeof User,
+        @Inject('UserRepository') private readonly userRepo: typeof User,
     ) {}
 
     public identityUrl = 'https://idensd.herokuapp.com/user/';
@@ -41,5 +42,54 @@ export class UserService {
         .pipe(
              map(response => response.data),
          );
+    }
+
+    async updateProfile(data: UserUpdate): Promise<any> {
+        const user = await this.userRepo.findOne({ where : {email: data.email} });
+
+        if (data.newPassword && data.newPassword !== data.confirmPassword) {
+            return {
+                isSuccess: true,
+                message: 'Confirm password is not match',
+            };
+        }
+        const hashPassword = crypto.SHA256(data.password).toString();
+        if (user) {
+            if (hashPassword !== user.password) {
+                return {
+                    isSuccess: false,
+                };
+            }
+        } else {
+            return {
+                isSuccess: false,
+            };
+        }
+
+        await this.userRepo.update({
+            address1: data.address1,
+            address2: data.address2,
+            agreement: data.agreement,
+            birthday: data.birthday,
+            city: data.city,
+            company: data.company,
+            country: data.country,
+            firstname: data.firstname,
+            gender: data.gender,
+            lastname: data.lastname,
+            phone: data.phone,
+            postcode: data.postcode,
+            regionstate: data.regionstate,
+            password: crypto.SHA256(data.newPassword).toString(),
+        },
+        {
+            where: {
+                email: data.email,
+            },
+        });
+        return {
+            isSuccess: true,
+            message: 'User profile is updated successfully',
+        };
     }
 }

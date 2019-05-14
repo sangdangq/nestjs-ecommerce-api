@@ -2,7 +2,7 @@ import { User } from './user.entity';
 
 export const userProviders = [
   {
-    provide: 'UserRepo',
+    provide: 'UserRepository',
     useValue: User,
   },
 ];

@@ -1,8 +1,9 @@
-import { Table, Column, IsUUID, Unique, AllowNull, BeforeCreate, Model, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
-import { IsEmail, MaxLength } from 'class-validator';
+import { Table, Column, IsUUID, Unique, AllowNull, BeforeCreate, Model, AutoIncrement, PrimaryKey, BeforeUpdate } from 'sequelize-typescript';
+import * as crypto from 'crypto-js';
+import { MaxLength, IsEmail } from 'class-validator';
 
 @Table
-export class User extends Model<User> {
+export class User extends Model<User>{
   @PrimaryKey
   @Column
   uid: string;
@@ -26,9 +27,6 @@ export class User extends Model<User> {
   company?: string;
 
   @Column
-  confirm: string;
-
-  @Column
   country: string;
 
   @Column
@@ -45,9 +43,6 @@ export class User extends Model<User> {
 
   @Column
   password: string;
-
-  @Column
-  confirmpassword: string;
 
   @Column
   phone: string;

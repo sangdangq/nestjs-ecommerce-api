@@ -1,8 +1,9 @@
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, Put, UseGuards } from '@nestjs/common';
 import { Controller, Post, Body, Res } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { UserService } from './user.service';
-import { LoginVm, TokenVm, UserRegisterVm, RefreshTokenVm } from './user.model';
+import { LoginVm, TokenVm, UserRegisterVm, RefreshTokenVm, UserUpdate } from './user.model';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -30,13 +31,25 @@ export class UserController {
     });
   }
 
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Put('updateProfile')
+  async updateProfile( @Body() body: any, @Res() res ) {
+    const result = await this._userService.updateProfile(body);
+    if (result.isSuccess) {
+      res.status(HttpStatus.OK).send(result.message);
+    } else {
+      res.status(HttpStatus.BAD_REQUEST).end('Failed to update user profile');
+    }
+  }
+
   @ApiOkResponse({type: TokenVm})
   @Post('refreshToken')
   async refreshToken(@Body() refreshInfo: RefreshTokenVm, @Res() res) {
     return this._userService.refreshToken(refreshInfo).subscribe(data => {
       res.status(HttpStatus.OK).send(data);
     }, err => {
-      res.status(HttpStatus.BAD_REQUEST).end(err.response.data);
+      res.status(HttpStatus.BAD_REQUEST).send(err.response.data);
     });
   }
 }
