@@ -34,7 +34,7 @@ export class UserController {
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Put('updateProfile')
-  async updateProfile( @Body() body: any, @Res() res ) {
+  async updateProfile( @Body() body: UserUpdate, @Res() res ) {
     const result = await this._userService.updateProfile(body);
     if (result.isSuccess) {
       res.status(HttpStatus.OK).send(result.message);
