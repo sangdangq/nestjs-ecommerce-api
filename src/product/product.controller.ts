@@ -56,7 +56,10 @@ export class ProductController {
   async update(@Body() dataUpdate: ProductVm, @Res() res) {
     const updateSuccess = await this.productService.update(dataUpdate);
     if (updateSuccess) {
-      res.status(HttpStatus.OK).end('Update successfully');
+      res.status(HttpStatus.OK).send({
+        message: 'Updated successfully',
+        code: 200,
+      });
     } else {
       res.status(HttpStatus.BAD_REQUEST).end('Update failed');
     }
@@ -68,7 +71,7 @@ export class ProductController {
   async delete(@Body() body: ProductDeleteVm, @Res() res) {
     const isDeleted = await this.productService.deletebyId(body.productId);
     if (isDeleted) {
-      res.status(HttpStatus.OK).end('Successfully deleted');
+      res.status(HttpStatus.OK).end('Deleted successfully');
     } else {
       res.status(HttpStatus.BAD_REQUEST).end('Delete failed');
     }
