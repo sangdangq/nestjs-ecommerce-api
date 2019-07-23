@@ -9,10 +9,4 @@ export class AppController {
   root() {
     return this.appService.root();
   }
-
-  @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  async upload( @UploadedFile() file) {
-    console.log(file);
-  }
 }
