@@ -10,7 +10,22 @@ import { ApiBearerAuth, ApiOkResponse, ApiBadRequestResponse } from '@nestjs/swa
 export class ProductController {
   constructor(
       private readonly productService: ProductService,
-      ) {}
+  ) {}
+
+  @ApiOkResponse({type: [ProductVm]})
+  @ApiBadRequestResponse({
+    description: 'Failed to get product list',
+    type: ExceptionRes,
+  })
+  @Get()
+  async getProductList(@Res() res) {
+    const product = await this.productService.getProductList();
+    if (product) {
+      res.status(HttpStatus.OK).send(product);
+    } else {
+      res.status(HttpStatus.BAD_REQUEST).end('Failed to get product list');
+    }
+  }
 
   @ApiOkResponse({type: ProductVm})
   @ApiBadRequestResponse({

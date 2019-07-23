@@ -14,16 +14,8 @@ export class ProductService {
         });
     }
 
-    public getProductList(listProd: string[]) {
-        const productList = [];
-        listProd.forEach(item => {
-            this.productRepo.findOne({
-                where: { ProductId: item },
-            }).then(product => {
-                productList.push(product);
-            });
-        });
-        return productList;
+    public async getProductList() {
+        return this.productRepo.findAll();
     }
 
     public async create(prod: ProductVm) {
