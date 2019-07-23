@@ -9,11 +9,11 @@ export class CommentService {
         @InjectModel(Comment.modelName) private readonly commentModel: ModelType<Comment>,
     ) {}
 
-    async getCommentByProductId(id: number) {
+    async getCommentByProductId(id: string) {
         return await this.commentModel.find({productId: id});
     }
 
-    async getCommentByCustomerId(id: number) {
+    async getCommentByCustomerId(id: string) {
         return await this.commentModel.find({customerId: id});
     }
 

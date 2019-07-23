@@ -17,7 +17,7 @@ export class CommentController {
     }
 
     @Get('customer/:id')
-    async getCommentByCustomerId(@Param('id') customerId: number, @Res() res) {
+    async getCommentByCustomerId(@Param('id') customerId: string, @Res() res) {
         const result = await this.commentService.getCommentByCustomerId(customerId);
         if (result) {
             res.status(HttpStatus.OK).send(result);
