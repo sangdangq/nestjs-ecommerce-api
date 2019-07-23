@@ -7,7 +7,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const request = ctx.getRequest();
     let status = exception.getStatus();
-    const messageError = exception.message.message;
+    const messageError = exception.message && exception.message.message ? exception.message.message : exception.message;
 
     if (!status) {
         status = 400;
