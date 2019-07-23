@@ -10,11 +10,11 @@ export class CommentService {
     ) {}
 
     async getCommentByProductId(id: string) {
-        return await this.commentModel.find({productId: id});
+        return this.commentModel.find({productId: id});
     }
 
     async getCommentByCustomerId(id: string) {
-        return await this.commentModel.find({customerId: id});
+        return this.commentModel.find({customerId: id});
     }
 
     async create(commentDto: Comment) {
