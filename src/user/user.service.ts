@@ -17,7 +17,7 @@ export class UserService {
     login(userCre: LoginVm) {
         const endpoint = this.identityUrl + 'login';
         return this._http.post(endpoint, userCre)
-        .pipe(
+            .pipe(
                 map(response => response.data),
             );
     }
@@ -31,21 +31,25 @@ export class UserService {
     register(registerInfo: UserRegisterVm) {
         const endpoint = this.identityUrl + 'register';
         return this._http.post(endpoint, registerInfo)
-        .pipe(
-             map(response => response.data),
-         );
+            .pipe(
+                map(response => response.data),
+            );
     }
 
     refreshToken(refreshInfo: RefreshTokenVm) {
         const endpoint = this.identityUrl + 'refreshToken';
         return this._http.post(endpoint, refreshInfo)
-        .pipe(
-             map(response => response.data),
-         );
+            .pipe(
+                map(response => response.data),
+            );
+    }
+
+    async getlistUser() {
+        return this.userRepo.findAll();
     }
 
     async updateProfile(data: UserUpdate): Promise<any> {
-        const user = await this.userRepo.findOne({ where : {email: data.email} });
+        const user = await this.userRepo.findOne({ where: { email: data.email } });
 
         if (data.newPassword && data.newPassword !== data.confirmPassword) {
             return {
@@ -82,11 +86,11 @@ export class UserService {
             regionstate: data.regionstate,
             password: crypto.SHA256(data.newPassword).toString(),
         },
-        {
-            where: {
-                email: data.email,
-            },
-        });
+            {
+                where: {
+                    email: data.email,
+                },
+            });
         return {
             isSuccess: true,
             message: 'User profile is updated successfully',

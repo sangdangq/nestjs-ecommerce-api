@@ -1,4 +1,4 @@
-import { HttpStatus, Put, UseGuards } from '@nestjs/common';
+import { HttpStatus, Put, UseGuards, Get } from '@nestjs/common';
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { UserService } from './user.service';
@@ -50,6 +50,17 @@ export class UserController {
       res.status(HttpStatus.OK).send(data);
     }, err => {
       res.status(HttpStatus.BAD_REQUEST).send(err.response.data);
+    });
+  }
+
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  @Get('listUser')
+  listUser(@Res() res) {
+    this._userService.getlistUser().then(data => {
+      res.status(HttpStatus.OK).send(data);
+    }).catch(err => {
+      res.status(HttpStatus.BAD_REQUEST).send(err);
     });
   }
 }
