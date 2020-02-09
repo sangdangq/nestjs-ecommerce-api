@@ -10,7 +10,7 @@ const localDb = {
   port: 3306,
   username: 'root',
   password: 'root',
-  database: 'api',
+  database: 'api'
 };
 
 const herokuDb = {
@@ -20,7 +20,7 @@ const herokuDb = {
   port: 3306,
   username: 'b184f84a347e15',
   password: '004d043a',
-  database: 'heroku_3a3ebe478dc35e1',
+  database: 'heroku_3a3ebe478dc35e1'
 };
 
 const HerokuDbIden = {
@@ -30,7 +30,7 @@ const HerokuDbIden = {
   port: 3306,
   username: 'b19f6c1702f6ee',
   password: 'feb8b542',
-  database: 'heroku_f12da9dd03095a3',
+  database: 'heroku_f12da9dd03095a3'
 };
 
 export const databaseProviders = [
@@ -38,13 +38,9 @@ export const databaseProviders = [
     provide: 'SequelizeToken',
     useFactory: async () => {
       const sequelize = new Sequelize(HerokuDbIden);
-      sequelize.addModels([
-        Product,
-        User,
-        Category,
-      ]);
+      sequelize.addModels([Product, User, Category]);
       await sequelize.sync();
       return sequelize;
-    },
-  },
+    }
+  }
 ];

@@ -5,17 +5,14 @@ import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 import { productProviders } from './product.provider';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-    imports: [
-        SharedModule,
-        DatabaseModule,
-        PassportModule.register({ defaultStrategy: 'jwt' }),
-    ],
-    controllers: [ProductController],
-    providers: [
-        ProductService,
-    ...productProviders],
+  imports: [
+    SharedModule,
+    DatabaseModule,
+    PassportModule.register({ defaultStrategy: 'jwt' })
+  ],
+  controllers: [ProductController],
+  providers: [ProductService, ...productProviders]
 })
 export class ProductModule {}

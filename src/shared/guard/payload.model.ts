@@ -1,11 +1,11 @@
 export interface JwtPayload {
-    email: string;
-    role: string;
-    firstName: string;
-    lastName: string;
+  email: string;
+  role: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface Token {
-    token: string;
-    expireIn: number;
+  token: string;
+  expireIn: number;
 }

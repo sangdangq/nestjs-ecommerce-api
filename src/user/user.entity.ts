@@ -1,9 +1,12 @@
-import { Table, Column, IsUUID, Unique, AllowNull, BeforeCreate, Model, AutoIncrement, PrimaryKey, BeforeUpdate } from 'sequelize-typescript';
-import * as crypto from 'crypto-js';
-import { MaxLength, IsEmail } from 'class-validator';
+import {
+  Table,
+  Column,
+  Model,
+  PrimaryKey,
+} from 'sequelize-typescript';
 
 @Table
-export class User extends Model<User>{
+export class User extends Model<User> {
   @PrimaryKey
   @Column
   uid: string;

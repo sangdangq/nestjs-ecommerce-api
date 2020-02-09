@@ -7,20 +7,17 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-    imports: [
-        DatabaseModule,
-        HttpModule,
-        PassportModule.register({ defaultStrategy: 'jwt' }),
-        JwtModule.register({
-            secretOrPrivateKey: 'K4ad24@$!Dpnh80-14nadhKUoqe&&BJMSSSA',
-            signOptions: { expiresIn: '1h' },
-        }),
-    ],
-    controllers: [UserController],
-    providers: [UserService,
-        ...userProviders],
-    exports: [
-        UserService,
-    ],
+  imports: [
+    DatabaseModule,
+    HttpModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      secretOrPrivateKey: 'K4ad24@$!Dpnh80-14nadhKUoqe&&BJMSSSA',
+      signOptions: { expiresIn: '1h' }
+    }),
+  ],
+  controllers: [UserController],
+  providers: [UserService, ...userProviders],
+  exports: [UserService]
 })
 export class UserModule {}

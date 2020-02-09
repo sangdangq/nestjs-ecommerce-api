@@ -1,5 +1,5 @@
 import { Controller, Get, BadRequestException, Post, Body, Put, Delete, Param} from '@nestjs/common';
-import { CategoryVm, CategoryDelete } from './category.model';
+import { CategoryVm } from './category.model';
 import { CategorySevice } from './category.service';
 import { ApiOkResponse } from '@nestjs/swagger';
 

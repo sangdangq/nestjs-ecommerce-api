@@ -11,10 +11,10 @@ import { Comment } from './comment.model';
   imports: [
     DatabaseModule,
     SharedModule,
-    MongooseModule.forFeature([{ name: Comment.modelName, schema: Comment.model.schema }]),
+    MongooseModule.forFeature([
+      { name: Comment.modelName, schema: Comment.model.schema },
+    ]),
   ],
-  providers: [
-    CommentService,
-  ],
+  providers: [CommentService],
 })
 export class CommentModule {}

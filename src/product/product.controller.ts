@@ -1,21 +1,33 @@
 import { ExceptionRes } from './../shared/model/response';
-import { Get, Controller, Query, Param, Body, Res, HttpStatus, Post, Put, UseGuards, Delete, ForbiddenException,
-   UseInterceptors } from '@nestjs/common';
+import {
+  Get,
+  Controller,
+  Param,
+  Body,
+  Res,
+  HttpStatus,
+  Post,
+  Put,
+  UseGuards,
+  Delete
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ProductService } from './product.service';
 import { ProductVm, ProductDeleteVm } from './product.model';
-import { ApiBearerAuth, ApiOkResponse, ApiBadRequestResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiBadRequestResponse
+} from '@nestjs/swagger';
 
 @Controller('product')
 export class ProductController {
-  constructor(
-      private readonly productService: ProductService,
-  ) {}
+  constructor(private readonly productService: ProductService) {}
 
-  @ApiOkResponse({type: [ProductVm]})
+  @ApiOkResponse({ type: [ProductVm] })
   @ApiBadRequestResponse({
     description: 'Failed to get product list',
-    type: ExceptionRes,
+    type: ExceptionRes
   })
   @Get()
   async getProductList(@Res() res) {
@@ -27,10 +39,10 @@ export class ProductController {
     }
   }
 
-  @ApiOkResponse({type: ProductVm})
+  @ApiOkResponse({ type: ProductVm })
   @ApiBadRequestResponse({
     description: 'Failed to get product',
-    type: ExceptionRes,
+    type: ExceptionRes
   })
   @Get(':id')
   async getProductById(@Param('id') id: string, @Res() res) {
@@ -49,10 +61,10 @@ export class ProductController {
 
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  @ApiOkResponse({type: ProductVm})
+  @ApiOkResponse({ type: ProductVm })
   @ApiBadRequestResponse({
     description: 'Failed to create product',
-    type: ExceptionRes,
+    type: ExceptionRes
   })
   @Post()
   async create(@Body() body: ProductVm, @Res() res) {
@@ -65,7 +77,7 @@ export class ProductController {
   }
 
   @UseGuards(AuthGuard())
-  @ApiOkResponse({description: 'Successfully updated'})
+  @ApiOkResponse({ description: 'Successfully updated' })
   @ApiBearerAuth()
   @Put()
   async update(@Body() dataUpdate: ProductVm, @Res() res) {
@@ -73,7 +85,7 @@ export class ProductController {
     if (updateSuccess) {
       res.status(HttpStatus.OK).send({
         message: 'Updated successfully',
-        code: 200,
+        code: 200
       });
     } else {
       res.status(HttpStatus.BAD_REQUEST).end('Update failed');

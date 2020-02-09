@@ -20,17 +20,17 @@ export class CategorySevice {
 
     public async update(category: CategoryVm) {
         return this.categoryRepo.update({
-            Description: category.description,
+            Description: category.description
         }, {
             where: {
-                CategoryId: category.categoryId,
+                CategoryId: category.categoryId
             },
         });
     }
 
     public async delete(id: number) {
         return this.categoryRepo.destroy({
-            where: { CategoryId: id},
+            where: { CategoryId: id}
         });
     }
 }
