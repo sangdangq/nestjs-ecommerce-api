@@ -1,6 +1,5 @@
 import { Module, MulterModule } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
-import { AutomapperModule } from 'nestjsx-automapper';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AllExceptionsFilter } from './shared/exception-filter/exception.filter';
@@ -21,8 +20,7 @@ import { UploadFileModule } from './upload-file/upload-file.module';
     MulterModule.register({
       dest: 'uploads',
     }),
-    UploadFileModule,
-    AutomapperModule.forRoot()
+    UploadFileModule
   ],
   controllers: [AppController],
   providers: [

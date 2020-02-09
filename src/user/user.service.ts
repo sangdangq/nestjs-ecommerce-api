@@ -1,12 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { InjectMapper, AutoMapper } from 'nestjsx-automapper';
 import { HttpService } from '@nestjs/common/http';
 import { map } from 'rxjs/operators';
 import {
   LoginVm,
   UserRegisterVm,
-  RefreshTokenVm,
-  UserUpdate,
+  RefreshTokenVm
 } from './user.model';
 import { User } from './user.entity';
 import * as crypto from 'crypto-js';
@@ -15,8 +13,7 @@ import * as crypto from 'crypto-js';
 export class UserService {
   constructor(
     private readonly _http: HttpService,
-    @Inject('UserRepository') private readonly userRepo: typeof User,
-    @InjectMapper() private readonly _mapper: AutoMapper,
+    @Inject('UserRepository') private readonly userRepo: typeof User
   ) {}
 
   public identityUrl = 'https://idensd.herokuapp.com/user/';
@@ -78,7 +75,6 @@ export class UserService {
       };
     }
 
-    const result = this._mapper.map(data.toJSON(), UserUpdate);
     await this.userRepo.update(
       {
         address1: data.address1,
