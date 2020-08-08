@@ -27,7 +27,6 @@ export class ProductVm {
   @ApiModelProperty()
   categoryId: number;
 
-  @Min(2)
   @IsNumber()
   @ApiModelProperty()
   discountRate: number;
