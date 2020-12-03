@@ -9,6 +9,7 @@ import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { CommentModule } from './comment/comment.module';
 import { UploadFileModule } from './upload-file/upload-file.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { UploadFileModule } from './upload-file/upload-file.module';
     MulterModule.register({
       dest: 'uploads',
     }),
-    UploadFileModule
+    UploadFileModule,
+    ConfigModule.forRoot()
   ],
   controllers: [AppController],
   providers: [

@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { databaseProviders } from './database.providers';
-const mongoConfig =
-  'mongodb+srv://sangdangq:nashtechfe@cluster0.dasdv.mongodb.net/nest?retryWrites=true&w=majority';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [MongooseModule.forRoot(mongoConfig)],
+  imports: [
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule.forRoot()],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_CONFIG'),
+      }),
+      inject: [ConfigService],
+    })
+  ],
   providers: [...databaseProviders],
   exports: [...databaseProviders],
 })
