@@ -2,11 +2,11 @@ import {
   HttpStatus,
   UseInterceptors,
   UploadedFile,
-  FileInterceptor,
   Get,
   Param,
 } from '@nestjs/common';
 import { Controller, Post, Res } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('uploads')
 export class UploadController {

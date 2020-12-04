@@ -1,4 +1,5 @@
-import { Module, HttpModule, MulterModule } from '@nestjs/common';
+import { Module, HttpModule } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
 import { DatabaseModule } from '../database/database.module';
 import { UploadController } from './upload-file.controller';
 import { UploadFileService } from './upload-file.service';
