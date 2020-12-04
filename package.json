@@ -50,7 +50,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4",
-    "sequelize": "^4.42.0",
+    "sequelize": "^5.15.1",
     "sequelize-typescript": "^0.6.7",
     "swagger-ui-express": "^4.1.5",
     "ts-md5": "^1.2.4",
